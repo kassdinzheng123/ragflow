@@ -44,6 +44,8 @@ from rag.graphrag.phase_markers import (
     set_phase_marker,
 )
 from rag.graphrag.utils import (
+    SOURCE_SUBGRAPH_VERSION,
+    SOURCE_SUBGRAPH_VERSION_KEY,
     GraphChange,
     chunk_id,
     does_graph_contains,
@@ -790,6 +792,7 @@ async def generate_subgraph(
     tidy_graph(subgraph, callback, check_attribute=False)
 
     subgraph.graph["source_id"] = [doc_id]
+    subgraph.graph[SOURCE_SUBGRAPH_VERSION_KEY] = SOURCE_SUBGRAPH_VERSION
     chunk = {
         "content_with_weight": json.dumps(nx.node_link_data(subgraph, edges="edges"), ensure_ascii=False),
         "knowledge_graph_kwd": "subgraph",
